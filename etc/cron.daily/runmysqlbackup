@@ -1,0 +1,11 @@
+#~~~~ Copy From Below Here ~~~~
+#!/bin/sh
+
+/usr/local/bin/automysqlbackup /etc/automysqlbackup/myserver.conf
+
+chown root.root /root/backup/db* -R
+find /root/backup/db* -type f -exec chmod 400 {} \;
+find /root/backup/db* -type d -exec chmod 700 {} \;
+
+#~~~~~ Copy To Above Here ~~~~
+
