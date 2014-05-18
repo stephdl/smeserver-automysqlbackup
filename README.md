@@ -1,2 +1,0 @@
-smeserver-automysqlbackup
-=========================
