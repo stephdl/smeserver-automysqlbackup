@@ -1,6 +1,6 @@
 %define name smeserver-automysqlbackup
 %define version 3.0.RC6
-%define release 3
+%define release 4
 %define rpmver   3.0.RC6
 
 
@@ -28,8 +28,10 @@ This script is based on automysqlbackup V3.0
 
 
 %changelog
-* Sun May 18 2014 Stephane de Labrusse <stephdl@de-labrusse.fr> 3.0.RC6.3
-- first release for sme9
+* Sun Aug 17 2014 Stephane de Labrusse <stephdl@de-labrusse.fr> 3.0.RC6-4
+- added my own patch against the --events warning
+--Warning: Skipping the data of table mysql.event. Specify the --events option explicitly.
+
 * Sun Oct 27 2013 Stephane de Labrusse <stephdl@de-labrusse.fr> 3.0.RC6.3
 - split the contrib in two versions smeserver-automysqlbackup and automysqlbackup
 * Mon Apr 22 2013 Stephane de Labrusse <stephdl@de-labrusse.fr>
@@ -104,7 +106,7 @@ echo "==========================================================================
 
 #create backupuser and give rights
 MYSQLPASS=$(/sbin/e-smith/config getprop $SMEDB DbPassword)
-mysql -e " GRANT SELECT,LOCK TABLES ON *.* TO $MYSQLUSER@'localhost' "
+mysql -e " GRANT EVENT,SELECT,LOCK TABLES ON *.* TO $MYSQLUSER@'localhost' "
 mysql -u root -e "SET PASSWORD FOR $MYSQLUSER@localhost = PASSWORD( '$MYSQLPASS' ) "
 mysqladmin flush-privileges
 /etc/rc.d/init.d/mysql.init start
